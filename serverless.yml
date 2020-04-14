@@ -21,6 +21,10 @@ provider:
         - dynamodb:GetItem
         - dynamodb:PutItem
       Resource: "*"
+    - Effect: Allow
+      Action:
+        - SNS:*
+      Resource: "arn:aws:sns:us-east-1:290538282417:ExpiringConsumables"
 
 functions:
   create-consumable-type:
@@ -48,6 +52,9 @@ functions:
       - http:
           method: get
           path: user-consumables
+
+  send-notifications:
+    handler: tasks/send-notifications.handler
 
 resources: # CloudFormation template syntax
   Resources:
@@ -77,6 +84,11 @@ resources: # CloudFormation template syntax
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+
+    ExpiringConsumablesSNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: ExpiringConsumables
 
 custom:
   dynamodb:

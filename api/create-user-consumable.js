@@ -1,4 +1,4 @@
-const dynamoDB = require('./util').dynamoDB
+const dynamoDB = require('../utils/dynamo').dynamoDB
 const uuid4 = require('uuid').v4
 
 const handler = (event, context, cb) => {
