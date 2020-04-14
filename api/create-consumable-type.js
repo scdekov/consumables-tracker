@@ -1,6 +1,6 @@
-import {dynamoDb} from './util'
+const dynamoDB = require('./util').dynamoDB
 
-export const handler = (event, context, cb) => {
+const handler = (event, context, cb) => {
   putConsumableTypeToDB(JSON.parse(event.body))
   .then(res => {
     cb(null, {
@@ -11,9 +11,11 @@ export const handler = (event, context, cb) => {
 }
 
 var putConsumableTypeToDB = async consumableType => {
-  await dynamoDb.put({
+  await dynamoDB.put({
     TableName: 'ConsumableType',
     Item: consumableType
   }).promise()
   return consumableType
 }
+
+module.exports = {handler}

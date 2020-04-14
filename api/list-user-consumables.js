@@ -1,7 +1,7 @@
 const dynamoDB = require('./util').dynamoDB
 
 const handler = (event, context, cb) => {
-  getConsumableTypes()
+  getUserConsumables()
   .then(res => {
     cb(null, {
       statusCode: 200,
@@ -10,9 +10,9 @@ const handler = (event, context, cb) => {
   })
 }
 
-var getConsumableTypes = async () => {
+var getUserConsumables = async () => {
   const res = await dynamoDB.scan({
-    TableName: 'ConsumableType',
+    TableName: 'UserConsumable',
   }).promise()
   return res['Items']
 }

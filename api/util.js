@@ -1,7 +1,6 @@
 const AWS = require('aws-sdk');
 
 AWS.config.setPromisesDependency(require('bluebird'));
-export const dynamoDb = new AWS.DynamoDB.DocumentClient({
-  region: 'localhost',
-  endpoint: 'http://localhost:8000',
-});
+const dynamoDB = new AWS.DynamoDB.DocumentClient();
+
+module.exports = {dynamoDB}
